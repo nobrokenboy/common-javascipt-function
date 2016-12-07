@@ -90,7 +90,7 @@ window.util=(function(){
         }
         //获取对象的key
         for(var i in obj){
-            result.push(i);
+            result.push(parseInt(i));
         }
         return result;
     }
