@@ -110,5 +110,43 @@ window.util=(function(){
         return "";
 
     };
+    
+    //判断元素是否在数组中
+	util.isElementInArr=function(ele,arr){
+		for(var i= 0,j=arr.length;i<j;i++){
+			if(ele==arr[i]){
+				return true;
+			}
+		}
+	};
+	//获取时间差,返回时间差
+	util.getDiffTimes= function (t1,t2) {
+		var diffTimes=t2-t1;
+		var timesObj={};
+		var d=0;//天数
+		var h=0;//时
+		var m=0;//分
+		var s=0;//秒
+		if(diffTimes>=0){
+			d=Math.floor(diffTimes/1000/60/60/24);
+			h=Math.floor(diffTimes/1000/60/60%24);
+			m=Math.floor(diffTimes/1000/60%60);
+			s=Math.floor(diffTimes/1000%60);
+		}
+
+		h = h>9 ? h : "0"+h; //如果小时小于10,则在前面加0补充为两位数字
+		m = m>9 ? m : "0"+m; //如果分钟小于10,则在前面加0补充为两位数字
+		s = s>9 ? s : "0"+s; //如果秒数小于10,则在前面加0补充为两位数字
+
+		timesObj={
+			h:h,
+			m:m,
+			s:s
+		};
+		return timesObj;
+
+	};
+    
+    
     return util;
 })();
