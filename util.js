@@ -104,7 +104,8 @@ window.util=(function(){
         for(var i=0,j=arr.length;i<j;i++){
             var parameter=arr[i].split("=");
             if(parameter[0].toLowerCase()==para.toLowerCase()){
-                return parameter[1];
+            	//避免获取的参数中含中文名称乱码的问题
+                return decodeURI(parameter[1]);
             }
         }
         return "";
@@ -145,6 +146,45 @@ window.util=(function(){
 		};
 		return timesObj;
 
+	};
+	//将手机号码显示进行处理
+	util.replacePhoneStr=function (phone,str1,str2,replaceStr) {
+		//检验参数的个数
+		if(arguments.length!=4)
+			throw new Error('received ' + arguments.length + ' parameters and should work with 4');
+		str1=str1||0;
+		str2=str2||phone.length;
+		//str2至少要str1后一位
+		if(!phone){
+			return "请确定手机号码";
+		}
+		if(typeof str1 !="number"||typeof str2!="number"){
+			return "请输入正确的参数格式";
+		}
+		replaceStr=replaceStr||eval("alert('请传入手机号要替换的字符串');");
+		phone=phone.replace(phone.substring(str1,str2),replaceStr);
+		return phone;
+	}
+	
+	//获取前天，今天，昨天，明天，后天的日期
+	util.getDate=function(AddDayCount){
+		var dd = new Date();
+		dd.setDate(dd.getDate()+AddDayCount);//获取AddDayCount天后的日期
+		var y = dd.getFullYear();
+		var m = dd.getMonth()+1;//获取当前月份的日期
+		var d = dd.getDate();
+		return y+"-"+m+"-"+d;
+
+	};
+
+	//获取前一个月，后一个月
+	util.getMonths=function(AddMonthCount){
+		var dd=new Date();
+		dd.setMonth(dd.getMonth()+AddMonthCount);
+		var y=dd.getFullYear();
+		var m=dd.getMonth()+1;
+		var d=dd.getDate();
+		return y+"-"+m+"-"+d;
 	};
     
     
