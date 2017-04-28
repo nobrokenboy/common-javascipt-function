@@ -221,6 +221,52 @@ window.util=(function(){
 		if(iSum%11!=1) return "你输入的身份证号非法";
 		return true;
 	};
+	
+	util.turnOneToTwo=function(arr,column){
+		var twoDimensArr=[];
+		//获取数组长度
+		var arrlength=arr.length;
+		//获取行数
+		var rows=Math.ceil(arrlength/column);
+		for(var i=0,j=rows;i<j;i++){
+			var startIndex=i*column;
+			var endIndex=startIndex+column;
+			twoDimensArr.push(arr.slice(startIndex,endIndex));
+		}
+		
+		return twoDimensArr;
+	};
+	
+	util.setCookie=function(c_name,value,expiredays){
+		var exdate=new Date();
+		exdate.setDate(exdate.getDate()+expiredays)
+		document.cookie=c_name+ "=" +escape(value)+
+			((expiredays==null) ? "" : ";expires="+exdate.toGMTString())
+	};
+
+	util.getCookie=function(c_name){
+		var c_start,c_end;
+		if (document.cookie.length>0)
+		{
+			c_start=document.cookie.indexOf(c_name + "=")
+			if (c_start!=-1)
+			{
+				c_start=c_start + c_name.length+1
+				c_end=document.cookie.indexOf(";",c_start)
+				if (c_end==-1) c_end=document.cookie.length
+				return unescape(document.cookie.substring(c_start,c_end))
+			}
+		}
+		return ""
+	};
+
+	util.deleteCookie=function(name){
+		var exp = new Date();
+		exp.setTime(exp.getTime() - 1);
+		var cval=this.getCookie(name);
+		if(cval!=null)
+			document.cookie= name + "="+cval+";expires="+exp.toGMTString();
+	};
     
     
     return util;

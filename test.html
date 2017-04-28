@@ -18,6 +18,26 @@
 			console.log(util.getMonths(-1));
 			console.log(util.getDateToday());
 			console.log(util.fisCardID("440583199X090X2820"));
+			console.log(util.turnOneToTwo([12,34,22,78,90,33,22],2));
+			var objArr=[
+                        {
+                            itemName:"在施工地数",
+                            itemNums:50
+                        },
+                        {
+                            itemName:"进度异常数",
+                            itemNums:20
+                        },
+                        {
+                            itemName:"不在施工地数",
+                            itemNums:50
+                        },
+                        {
+                            itemName:"非进度异常数",
+                            itemNums:20
+                        }
+                    ];
+			console.log(util.turnOneToTwo(objArr,2));
 		</script>
 	</body>
 </html>
