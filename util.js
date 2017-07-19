@@ -90,7 +90,7 @@ window.util=(function(){
         }
         //获取对象的key
         for(var i in obj){
-            result.push(parseInt(i));
+            result.push(i);
         }
         return result;
     };
@@ -205,7 +205,18 @@ window.util=(function(){
 		var nowSecond=tempDate.getSeconds()>9?tempDate.getSeconds():"0"+tempDate.getSeconds();
 		return nowYear+"-"+nowMonth+"-"+nowDate+" "+nowHour+":"+nowMini+":"+nowSecond;
 	};
-	
+	//验证手机号码的正确性
+	util.testPhone=function(phoneNum,isRequire){
+		isRequire=isRequire||true;
+		var phoneRegx=/^(13[0-9]|15[012356789]|17[678]|18[0-9]|14[57])[0-9]{8}$/;
+		if(!phoneNum&&isRequire){
+			return "手机号不能为空";
+		}
+		if(!phoneNum.match(phoneRegx)){
+			return "您输入的手机格式有误";
+		}
+		return true;
+	}
 	//判断身份证是否正确
 	util.fisCardID=function (sId) {
 		var aCity={11:"北京",12:"天津",13:"河北",14:"山西",15:"内蒙古",21:"辽宁",22:"吉林",23:"黑龙江",31:"上海",32:"江苏",33:"浙江",34:"安徽",35:"福建",36:"江西",37:"山东",41:"河南",42:"湖北",43:"湖南",44:"广东",45:"广西",46:"海南",50:"重庆",51:"四川",52:"贵州",53:"云南",54:"西藏",61:"陕西",62:"甘肃",63:"青海",64:"宁夏",65:"新疆",71:"台湾",81:"香港",82:"澳门",91:"国外"}
@@ -234,7 +245,7 @@ window.util=(function(){
 			twoDimensArr.push(arr.slice(startIndex,endIndex));
 		}
 		
-		return twoDimensArr;
+		return twoDimensArr; 
 	};
 	
 	util.setCookie=function(c_name,value,expiredays){
@@ -266,6 +277,95 @@ window.util=(function(){
 		var cval=this.getCookie(name);
 		if(cval!=null)
 			document.cookie= name + "="+cval+";expires="+exp.toGMTString();
+	};
+	
+	util.getArrIntoClassify=function(arr){//将数组中的项进行归类和计数,
+		var obj={},tempStr="",temArr=[],removeRepeateArr=[];
+		if(arr.length>0){
+			//这一步是去重
+			arr.forEach(function(item,key,arr){
+				obj[item]=item;//获取到不重复的key
+			});
+			//console.log(obj);
+			for(var i in obj){//获取种类以及对于个数
+				removeRepeateArr.push({
+					"typeName":i,
+					"num":0
+				});
+			}
+			arr.forEach(function(item,key,arr){
+				removeRepeateArr.forEach(function(value,index,arr1){
+					if(item==value.typeName){
+						value.num++;
+					}
+				});
+			});
+			removeRepeateArr.forEach(function(item,key,arr){//根据后台处理，默认
+				temArr.push(item.typeName+"*"+item.num);
+			});
+			//console.log(removeRepeateArr);
+			//console.log(temArr);
+
+			tempStr=temArr.join('、');
+		}
+		return {
+			arr:removeRepeateArr,
+			str:tempStr//默认的已经处理好的
+		};
+	};
+	
+	util.keyNum=function(val){//作用：输入必须是数字，否则置为空
+		if(isNaN(val))
+			val="";
+		//return val.replace(/[^\d,.?]/g,'');
+		return val;
+	};
+	
+	util.keyPositiveNum=function(val,isLessNumberOne){//判断输入是否为正数,val输入值，isLessNumberOne是否需要小于1
+		isLessNumberOne=isLessNumberOne||false;
+		//debugger;
+		if(!isNaN(val)){
+			if(val>0&&!isLessNumberOne){
+				return true;
+			}else if(val>0&&isLessNumberOne){
+				if(val>1||val==1){
+					return "请输入大于0小于1的正数";
+				}else{
+					return true;
+				}
+			}else if((val<0||val==0)&&!isLessNumberOne){
+				return "请输入正数";
+			}else if((val<0||val==0)&&isLessNumberOne){
+				return "请输入大于0小于1的正数";
+			}
+		}else{
+			if(!isLessNumberOne){
+				return "请输入正数";
+			}else{
+				return "请输入大于0小于1的正数";
+			}
+		}
+	};
+	
+	util.keyOneLessThanTwo=function(val1,val2){//val1必须小于val2
+		if(val1>val2){
+			val1=val2;
+		}
+		return val1;
+	};
+
+	util.keepNumDecimal=function(val,nums){//保持num代表的是位数，保留小数点后的位数
+		var temp=val.toString();
+		var strLength=temp.length;
+		var dotIndex=temp.indexOf(".");
+		var strMaxLength=dotIndex+1+nums;
+		if(dotIndex>-1){
+			//存在小数点
+			if(strLength>strMaxLength){
+				val=Math.floor(val);
+			}
+		}
+		return val;
 	};
     
     

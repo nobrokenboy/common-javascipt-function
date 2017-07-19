@@ -7,6 +7,8 @@
 	<body>
 		<script src="util.js"></script>
 		<script>
+			var _a=[0,12,67,87,101,102,101];
+			console.log(util.removeDuplicate(_a));
 			console.log(util.getDate(-1));
 			console.log(util.getDate(1));
 			console.log(util.getDate(0));
@@ -38,6 +40,10 @@
                         }
                     ];
 			console.log(util.turnOneToTwo(objArr,2));
+			
+			var arrTest=["肉饼","核桃","饼干","苹果","肉饼","苹果","苹果"];
+			console.log(util.getArrIntoClassify(arrTest).str);
+			console.log(util.getArrIntoClassify(arrTest).arr);
 		</script>
 	</body>
 </html>
