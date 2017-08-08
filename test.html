@@ -5,6 +5,13 @@
 		<title>测试方法10------同时添加到github以及gitlab</title>
 	</head>
 	<body>
+		<div>
+			<form action="">
+				<input type="text" placeholder="请输入身份证号" style="width:200px;" name="sid"/>
+				<button type="button" id="test">测试身份证号</button>
+				<p class="sid-result-show" id="sidResult"></p>
+			</form>
+		</div>
 		<script src="util.js"></script>
 		<script>
 			var _a=[0,12,67,87,101,102,101];
@@ -44,6 +51,20 @@
 			var arrTest=["肉饼","核桃","饼干","苹果","肉饼","苹果","苹果"];
 			console.log(util.getArrIntoClassify(arrTest).str);
 			console.log(util.getArrIntoClassify(arrTest).arr);
+			
+			var result=document.getElementById("sidResult");
+			document.getElementById("test").addEventListener("click",function(){
+				/*数据部提供算法进行计算的*/
+				var sid=util.trim(document.getElementsByName("sid")[0].value);
+				var testIDResult=util.checkIdentityId(sid);
+				console.log(testIDResult);
+				result.innerText=testIDResult;
+			});
+			document.getElementsByName("sid")[0].addEventListener("focus",function(){
+				result.innerText="";
+				this.value="";
+			});
+			
 		</script>
 	</body>
 </html>

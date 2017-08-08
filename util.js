@@ -367,6 +367,37 @@ window.util=(function(){
 		}
 		return val;
 	};
+	util.trim=function(str){//去除空格
+		return str.replace(/(^\s*)|(\s*$)/g, ""); 
+	}
+	util.checkIdentityId=function(sID){//sID传字符串
+		var Sum=0,residueNum,sIdLast,residueOppositeNum;
+		console.log(sID);
+		//判断身份证号是否为空
+		if(!sID) return "请输入身份证号";
+		//判断身份证号的长度合法性
+		if(!/^\d{17}(\d|x)$/i.test(sID)) return "您输入的身份证长度或格式错误";
+		sIdLast=sID.charAt(sID.length-1);
+		//18位身份证（第18~2的权重）,从右数起2,3...18，判断有效性
+		var WiArr=[7,9,10,5,8,4,2,1,6,3,7,9,10,5,8,4,2];
+		//身份证对应位数*对应位数权重的累加/11取余数对应的数字（0,1,2,3,4,5,6,7,8,9,10）,与真实身份证最后一位做比较
+		//X,x都可以
+		var validArr=[1,0,'X',9,8,7,6,5,4,3,2];
+		for(var i=0;i<17;i++){
+			var Ai=parseInt(sID.charAt(i))*WiArr[i];
+			Sum+=Ai;
+		}
+		residueNum=Sum%11;
+		residueOppositeNum=validArr[residueNum];
+		console.log(residueOppositeNum);
+
+		if(residueOppositeNum.toString()===sIdLast.toUpperCase()){
+			return "您输入的身份证号有效";
+		}else{
+			return "您输入的身份证号无效";
+		}
+		
+	}
     
     
     return util;
