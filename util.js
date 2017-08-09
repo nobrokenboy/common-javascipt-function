@@ -372,7 +372,6 @@ window.util=(function(){
 	}
 	util.checkIdentityId=function(sID){//sID传字符串
 		var Sum=0,residueNum,sIdLast,residueOppositeNum;
-		console.log(sID);
 		//判断身份证号是否为空
 		if(!sID) return "请输入身份证号";
 		//判断身份证号的长度合法性
@@ -389,15 +388,28 @@ window.util=(function(){
 		}
 		residueNum=Sum%11;
 		residueOppositeNum=validArr[residueNum];
-		console.log(residueOppositeNum);
 
 		if(residueOppositeNum.toString()===sIdLast.toUpperCase()){
-			return "您输入的身份证号有效";
+			return true;
 		}else{
-			return "您输入的身份证号无效";
+			return "您输入的身份证号非法";
 		}
 		
 	}
+	
+	//判断是不是正整数
+	util.testIsPositiveInt=function(val){
+		var regxVal=/^[0-9]*[1-9][0-9]*$/;
+		if(isNaN(val)){
+			return "请输入正整数";
+		}
+		var temp=parseFloat(val);
+		if(regxVal.test(temp)){
+			return true;
+		}else{
+			return "请输入正整数";
+		}
+	};
     
     
     return util;

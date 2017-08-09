@@ -28,6 +28,17 @@
 			console.log(util.getDateToday());
 			console.log(util.fisCardID("440583199X090X2820"));
 			console.log(util.turnOneToTwo([12,34,22,78,90,33,22],2));
+			console.log("测试是否为正整数");
+			console.log(util.testIsPositiveInt(0.01));
+			console.log(util.testIsPositiveInt(12));
+			console.log(util.testIsPositiveInt(12.01));
+			console.log(util.testIsPositiveInt(-12.01));
+			console.log(util.testIsPositiveInt(-0.01));
+			console.log(util.testIsPositiveInt(12.0));
+			console.log(util.testIsPositiveInt("哈哈哈"));
+			console.log(util.testIsPositiveInt(0));
+			console.log(util.testIsPositiveInt(+30));
+			console.log(util.testIsPositiveInt(30.00));
 			var objArr=[
                         {
                             itemName:"在施工地数",
