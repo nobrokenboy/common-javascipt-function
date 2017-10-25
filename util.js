@@ -410,7 +410,29 @@ window.util=(function(){
 			return "请输入正整数";
 		}
 	};
-    
-    
+    //删除数组中指定的元素，并返回新的数组
+    util.deleteElementFromArray=function(arr,ele){
+    	var eleIndex;
+		for(var i=0;i<arr.length;i++){
+			if(arr[i]==ele){
+				console.log(i);
+                eleIndex=i;
+			}
+		}
+		if(eleIndex>-1){
+			console.log("要删除的元素索引值",eleIndex);
+            return arr.splice(eleIndex,1);
+		}
+		
+	
+    };
+    //new set 去重
+    util.removeRepeate=function(arr){
+    	return Array.from(new Set(arr));//转化为数组
+    };
+    //获取星星评价
+    util.getStarEvaluate=function(para,rate){
+    	return para.slice(5-rate,10-rate);
+    };
     return util;
 })();

@@ -76,6 +76,21 @@
 				this.value="";
 			});
 			
+			/*删除数组的*/
+			//var a=[{id:3,name:"lisi"},{id:2,name:"xiaoming"},{id:4,name:"xiaoming"}];
+			var a=["zhangsan","lisi","wangwu","xiaoqi"];
+			console.log(a);
+			var a1=util.deleteElementFromArray(a,"lisi");
+			console.log(a1);
+			
+			console.log(util.removeRepeate([1,1,1,8,4,5,6,2,8]));
+			
+			//字符串用法
+			var stars=util.getStarEvaluate("★★★★★☆☆☆☆☆",2);
+			//数组图片用法
+			var _stars=util.getStarEvaluate(["★","★","★","★","★","☆","☆","☆","☆","☆"],4);
+			console.log(stars);
+			console.log(_stars);
 		</script>
 	</body>
 </html>
