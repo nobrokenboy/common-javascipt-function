@@ -434,5 +434,26 @@ window.util=(function(){
     util.getStarEvaluate=function(para,rate){
     	return para.slice(5-rate,10-rate);
     };
+    //判断是否唯一
+    util.checkOnly=function(value,arr){//判断是否出现重复
+		var appearTimes=0;//是否找到数组的位置标记以及次数
+		var appearIndex=[];
+		for(var i in arr){
+			if(value==arr[i]){
+                appearTimes++;
+                appearIndex.push(i);
+			}
+		}
+		console.log(appearTimes);
+		console.log(appearIndex);
+		//结果,0次，1次或者多次；
+		if(appearTimes==0){
+			return true;
+		}else if(appearTimes==1){
+			return true;
+		}else if(appearTimes>1){
+			return false;
+		}
+	};
     return util;
 })();
