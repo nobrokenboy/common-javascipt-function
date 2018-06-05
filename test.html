@@ -10,6 +10,8 @@
 				<input type="text" placeholder="请输入身份证号" style="width:200px;" name="sid"/>
 				<button type="button" id="test">测试身份证号</button>
 				<p class="sid-result-show" id="sidResult"></p>
+				<input type="hidden" value="13288068223" class="phoneNumber"/>
+				<a class="phone-num" style="color:brown"></a>
 			</form>
 		</div>
 		<script src="util.js"></script>
@@ -67,7 +69,7 @@
 			document.getElementById("test").addEventListener("click",function(){
 				/*数据部提供算法进行计算的*/
 				var sid=util.trim(document.getElementsByName("sid")[0].value);
-				var testIDResult=util.checkIdentityId(sid);
+				var testIDResult=util.fisCardID(sid);
 				console.log(testIDResult);
 				result.innerText=testIDResult;
 			});
@@ -92,8 +94,34 @@
 			console.log(stars);
 			console.log(_stars);
 			
-			var testOnly=util.checkOnly(1,[1,2,66,22,3,100,88,2,3]);
-			console.log(testOnly);
+			var testArrs=["zhangsan","lisi","wangwu"];
+			//console.log("测试数组前：",testArrs);
+			var testOnly=util.checkOnly(" ",[1,2,66,22,3,100,88,2,3,"",""]);
+			console.log("是否唯一存在:",testOnly);
+			if(testOnly){
+				testArrs.length=0;
+			}
+		var phone=document.querySelector(".phoneNumber").value;
+		var phone1=phone.replace(phone.substr(7),"****");
+		document.querySelector(".phone-num").text="("+phone1+")";
+		alert(phone1);
+			console.log(util.getDateStr(31));
+			
+			var tempArr=[
+				{name:'小喵',id:0},
+				{name:'小喵1',id:1},
+				{name:'小喵2',id:2},
+				{name:'小喵',id:0},
+				{name:'小喵1',id:1},
+				{name:'小喵3',id:3},
+				{name:'小喵2',id:2},
+				{name:'小喵',id:0},
+				{name:'小喵1',id:1},
+				{name:'小喵1',id:1}
+			];
+			console.log(tempArr);
+			tempArr=util.dealWidthRepeateObj(tempArr,'id');
+			console.log(tempArr);
 		</script>
 	</body>
 </html>
