@@ -371,29 +371,7 @@ window.util=(function(){
 		return str.replace(/(^\s*)|(\s*$)/g, ""); 
 	}
 	util.checkIdentityId=function(sID){//sID传字符串
-		var Sum=0,residueNum,sIdLast,residueOppositeNum;
-		//判断身份证号是否为空
-		if(!sID) return "请输入身份证号";
-		//判断身份证号的长度合法性
-		if(!/^\d{17}(\d|x)$/i.test(sID)) return "您输入的身份证长度或格式错误";
-		sIdLast=sID.charAt(sID.length-1);
-		//18位身份证（第18~2的权重）,从右数起2,3...18，判断有效性
-		var WiArr=[7,9,10,5,8,4,2,1,6,3,7,9,10,5,8,4,2];
-		//身份证对应位数*对应位数权重的累加/11取余数对应的数字（0,1,2,3,4,5,6,7,8,9,10）,与真实身份证最后一位做比较
-		//X,x都可以
-		var validArr=[1,0,'X',9,8,7,6,5,4,3,2];
-		for(var i=0;i<17;i++){
-			var Ai=parseInt(sID.charAt(i))*WiArr[i];
-			Sum+=Ai;
-		}
-		residueNum=Sum%11;
-		residueOppositeNum=validArr[residueNum];
-
-		if(residueOppositeNum.toString()===sIdLast.toUpperCase()){
-			return true;
-		}else{
-			return "您输入的身份证号非法";
-		}
+		ns
 		
 	}
 	util.fisCardID=function (sId) {
@@ -477,6 +455,20 @@ window.util=(function(){
         let day=date.getDate();
         return `${year}-${month}-${day}`;
     }
+	
+	util.getDateDiff=function(d1,d2){//获取两个日期之间的天数,d1是2018-08-23这种格式
+		let d1Times,d1DateArr,d2DateArr,d2Times,diffTimes,differDate;
+		d1DateArr=d1.split('-');
+		d2DateArr=d2.split('-');
+		d1Times=new Date(d1DateArr[0],d1DateArr[1]-1,d1DateArr[2]).getTime();
+		d2Times=new Date(d2DateArr[0],d2DateArr[1]-1,d2DateArr[2]).getTime();
+		diffTimes=d2Times-d1Times;
+		console.log(diffTimes);
+		console.log(diffTimes/(1000*60*60*24));
+		differDate=Math.abs(Math.floor(diffTimes/(1000*60*60*24))); 
+		console.log('相差天数'+differDate);
+		return differDate;
+	}
 	
 	util.dealWidthRepeateObj=function(arr,differ){//arr是去重的数组对象,differ是key,3个以上数据存在问题
 //	
